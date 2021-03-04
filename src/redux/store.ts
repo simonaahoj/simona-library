@@ -16,6 +16,9 @@ const initState: AppState = {
   books: {
     books: [],
   },
+  authors: {
+    authors: [],
+  },
 }
 
 export default function makeStore(initialState = initState) {
