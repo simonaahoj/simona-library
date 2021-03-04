@@ -13,6 +13,9 @@ const initState: AppState = {
   ui: {
     dialogOpen: {},
   },
+  books: {
+    books: [],
+  },
 }
 
 export default function makeStore(initialState = initState) {
