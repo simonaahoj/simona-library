@@ -7,6 +7,8 @@ export const ADD_BOOKS = 'ADD_BOOKS'
 export const FETCH_BOOKS = 'FETCH_BOOKS'
 export const FETCH_AUTHORS = 'FETCH_AUTHORS'
 export const ADD_AUTHORS = 'ADD_AUTHORS'
+export const FETCH_LOGGED_IN_USER = 'FETCH_LOGGED_IN_USER'
+export const ADD_LOGGED_IN_USER = 'ADD_LOGGED_IN_USER'
 
 // Enum
 export enum DialogType {
@@ -42,6 +44,16 @@ export type Author = {
   imgUrl: string
 }
 
+export type User = {
+  _id: string
+  firstName: string
+  birthDate: Date
+  email: string
+  joinDate: Date
+  lastName: string
+  imgUrl: string
+}
+
 export type AddProductAction = {
   type: typeof ADD_PRODUCT
   payload: {
@@ -55,6 +67,10 @@ export type FetchBooksAction = {
 
 export type FetchAuthorsAction = {
   type: typeof FETCH_AUTHORS
+}
+
+export type FetchLoggedInUserAction = {
+  type: typeof FETCH_LOGGED_IN_USER
 }
 
 export type AddBooksAction = {
@@ -71,6 +87,12 @@ export type AddAuthorsAction = {
   }
 }
 
+export type AddLoggeedInUsersAction = {
+  type: typeof ADD_LOGGED_IN_USER
+  payload: {
+    user: User
+  }
+}
 export type RemoveProductAction = {
   type: typeof REMOVE_PRODUCT
   payload: {
@@ -91,6 +113,7 @@ export type UiActions = ToggleDialogAction
 export type ProductActions = AddProductAction | RemoveProductAction
 export type BookAction = FetchBooksAction | AddBooksAction
 export type AuthorAction = FetchAuthorsAction | AddAuthorsAction
+export type UserAction = FetchLoggedInUserAction | AddLoggeedInUsersAction
 
 export type ProductState = {
   inCart: Product[]
@@ -102,6 +125,10 @@ export type BooksState = {
 
 export type AuthorsState = {
   authors: Author[]
+}
+
+export type LoggedInUserState = {
+  user: User | undefined
 }
 
 // Using dynamic keys from an enum
@@ -116,4 +143,5 @@ export type AppState = {
   ui: UiState
   books: BooksState
   authors: AuthorsState
+  loggedInUser: LoggedInUserState
 }

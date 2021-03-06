@@ -19,6 +19,9 @@ const initState: AppState = {
   authors: {
     authors: [],
   },
+  loggedInUser: {
+    user: undefined,
+  },
 }
 
 export default function makeStore(initialState = initState) {

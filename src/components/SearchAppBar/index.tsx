@@ -12,9 +12,15 @@ import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import MoreIcon from '@material-ui/icons/MoreVert'
+import { AppState } from '../../types'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUser } from '../../redux/actions'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    profileImg: {
+      width: 30,
+    },
     grow: {
       flexGrow: 1,
     },
@@ -106,6 +112,11 @@ export default function SearchAppBar() {
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget)
   }
+  const dispatch = useDispatch()
+  const loggedInUser = useSelector((state: AppState) => state.loggedInUser.user)
+  if (loggedInUser === undefined) {
+    dispatch(fetchUser())
+  }
 
   const menuId = 'primary-search-account-menu'
   const renderMenu = (
@@ -118,7 +129,14 @@ export default function SearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <img
+          className={classes.profileImg}
+          src={loggedInUser?.imgUrl}
+          alt="profile"
+        />
+        {loggedInUser?.firstName}
+      </MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   )

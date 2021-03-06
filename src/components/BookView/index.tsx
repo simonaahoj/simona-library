@@ -51,7 +51,7 @@ export default function BookView({
           <Grid item>
             <a href={`/book/${_id}`}>
               <ButtonBase className={classes.image}>
-                <img className={classes.img} alt={` ${title}`} src={imgUrl} />
+                <img className={classes.img} alt={`${title}`} src={imgUrl} />
               </ButtonBase>
             </a>
           </Grid>
