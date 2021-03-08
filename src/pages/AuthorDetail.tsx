@@ -56,48 +56,32 @@ export default function BookDetail() {
     <div>
       <Card className={classes.root}>
         <CardActionArea>
-          <Typography gutterBottom variant="h5" component="h2">
-            {book.title}
-          </Typography>
-          <Typography gutterBottom variant="h6" component="h2">
-            {author?.firstName} {author?.lastName}
-          </Typography>
           <CardMedia
             className={classes.media}
-            image={book.imgUrl}
+            image={author?.imgUrl}
             title={book.title}
           />
+
           <CardContent>
             <Typography gutterBottom variant="h6" component="h2">
-              Description
+              {author?.firstName} {author?.lastName}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {book.description}
-            </Typography>
-            <br />
-            <Typography gutterBottom variant="h6" component="h2">
-              Details
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              Published:{book.published}
+              City: {author?.city}
               <br />
-              Categories:{' '}
-              {book.categories.map((category) => (
-                <label>{category} </label>
-              ))}
+              Country: {author?.country}
               <br />
-              Pages:{book.pages}
+              Birth Date: {author?.birthDate}
               <br />
-              ISBN:{book.ISBN}
+              Death Date:{author?.died}
+              <br />
+              Biography: {author?.biography}
             </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions>
           <Button size="small" color="primary">
             <a href={`/`}> Back </a>
-          </Button>
-          <Button size="small" color="primary">
-            Borrow
           </Button>
         </CardActions>
       </Card>

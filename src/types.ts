@@ -32,16 +32,19 @@ export type Book = {
   imgUrl: string
   idAuthor: string
   ISBN: number
+  description: string
 }
 
 export type Author = {
   _id: string
   city: string
-  counry: string
+  country: string
   birthDate: Date
   firstName: string
   lastName: string
   imgUrl: string
+  biography: string
+  died: string
 }
 
 export type User = {

@@ -59,14 +59,16 @@ export default function BookView({
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  {title}
+                  <a href={`/book/${_id}`}> {title}</a>
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  <AuthorView idAuthor={idAuthor} />
+                  <a href={`/author/${_id}`}>
+                    {' '}
+                    <AuthorView idAuthor={idAuthor} />
+                  </a>
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                   ISBN:{ISBN} <br />
-                  {_id}
                 </Typography>
               </Grid>
               <Grid item>

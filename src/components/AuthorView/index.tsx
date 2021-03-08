@@ -13,6 +13,7 @@ export default function AuthorView({ idAuthor }: { idAuthor: string }) {
   const author = useSelector((state: AppState) =>
     state.authors.authors.find((author) => author._id === idAuthor)
   )
+
   return (
     <>
       {author?.firstName} {author?.lastName}

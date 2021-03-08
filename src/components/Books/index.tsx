@@ -24,6 +24,7 @@ export default function Books() {
           imgUrl={b.imgUrl}
           idAuthor={b.idAuthor}
           ISBN={b.ISBN}
+          description={b.description}
         />
       ))}
     </>

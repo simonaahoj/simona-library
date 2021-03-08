@@ -15,6 +15,7 @@ import MoreIcon from '@material-ui/icons/MoreVert'
 import { AppState } from '../../types'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUser } from '../../redux/actions'
+import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -100,6 +101,14 @@ export default function SearchAppBar() {
     setAnchorEl(event.currentTarget)
   }
 
+  const handleLogout = () => {
+    window.location.href = '/logout'
+  }
+
+  const handleLogin = () => {
+    window.location.href = '/login'
+  }
+
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null)
   }
@@ -129,15 +138,18 @@ export default function SearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
-        <img
-          className={classes.profileImg}
-          src={loggedInUser?.imgUrl}
-          alt="profile"
-        />
-        {loggedInUser?.firstName}
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {loggedInUser && (
+        <MenuItem onClick={handleMenuClose}>
+          <img
+            className={classes.profileImg}
+            src={loggedInUser?.imgUrl}
+            alt="profile"
+          />
+          {loggedInUser?.firstName}
+        </MenuItem>
+      )}
+      <MenuItem onClick={handleLogin}>Login</MenuItem>
+      <MenuItem onClick={handleLogout}>Logout </MenuItem>
     </Menu>
   )
 
@@ -194,6 +206,7 @@ export default function SearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
+          <LocalMallOutlinedIcon />
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton
