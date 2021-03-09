@@ -25,6 +25,7 @@ export default function Books() {
           idAuthor={b.idAuthor}
           ISBN={b.ISBN}
           description={b.description}
+          copy={b.copy}
         />
       ))}
     </>

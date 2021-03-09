@@ -15,7 +15,7 @@ import MoreIcon from '@material-ui/icons/MoreVert'
 import { AppState } from '../../types'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUser } from '../../redux/actions'
-import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined'
+import Basket from '../Basket'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -139,14 +139,17 @@ export default function SearchAppBar() {
       onClose={handleMenuClose}
     >
       {loggedInUser && (
-        <MenuItem onClick={handleMenuClose}>
-          <img
-            className={classes.profileImg}
-            src={loggedInUser?.imgUrl}
-            alt="profile"
-          />
-          {loggedInUser?.firstName}
-        </MenuItem>
+        <>
+          <MenuItem onClick={handleMenuClose}>
+            <img
+              className={classes.profileImg}
+              src={loggedInUser?.imgUrl}
+              alt="profile"
+            />
+            {loggedInUser?.firstName}
+          </MenuItem>
+          <MenuItem onClick={handleMenuClose}>Administration</MenuItem>
+        </>
       )}
       <MenuItem onClick={handleLogin}>Login</MenuItem>
       <MenuItem onClick={handleLogout}>Logout </MenuItem>
@@ -206,7 +209,6 @@ export default function SearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
-          <LocalMallOutlinedIcon />
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton
@@ -220,6 +222,7 @@ export default function SearchAppBar() {
               <AccountCircle />
             </IconButton>
           </div>
+          <Basket />
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"

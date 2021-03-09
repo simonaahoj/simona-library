@@ -6,6 +6,10 @@ import { AppState } from '../types'
 import createRootReducer from './reducers'
 import rootSaga from './sagas'
 
+function loadFromLocalStore(key: string, defaultValue: string) {
+  return JSON.parse(localStorage.getItem(key) || defaultValue)
+}
+
 const initState: AppState = {
   product: {
     inCart: [],
@@ -21,6 +25,10 @@ const initState: AppState = {
   },
   loggedInUser: {
     user: undefined,
+  },
+  basketState: {
+    books: loadFromLocalStore(`basket`, '[]'),
+    open: false,
   },
 }
 

@@ -5,6 +5,7 @@ import ui from './ui'
 import books from './books'
 import authors from './authors'
 import loggedInUser from './user'
+import basketState from './basket'
 
 const createRootReducer = () =>
   combineReducers({
@@ -13,6 +14,7 @@ const createRootReducer = () =>
     books,
     authors,
     loggedInUser,
+    basketState,
   })
 
 export default createRootReducer

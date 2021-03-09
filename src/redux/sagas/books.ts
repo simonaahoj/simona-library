@@ -1,10 +1,15 @@
 import { put, takeLatest } from 'redux-saga/effects'
 
-import { FETCH_BOOKS, FetchBooksAction } from '../../types'
-import { addBooks } from '../actions'
+import {
+  FETCH_BOOKS,
+  FetchBooksAction,
+  DeleteBookAction,
+  DELETE_BOOK,
+} from '../../types'
+import { addBooks, fetchBooks as ftch } from '../actions'
 
 async function fetchBooks() {
-  const result = await fetch(' http://localhost:5000/api/v1/books')
+  const result = await fetch('http://localhost:5000/api/v1/books')
   const booksAsJson = await result.json()
   return booksAsJson
 }
@@ -15,4 +20,19 @@ function* fetchAllTheBooks(action: FetchBooksAction) {
   yield put(addBooks(books))
 }
 
-export default [takeLatest(FETCH_BOOKS, fetchAllTheBooks)]
+async function asyncDeleteBook(action: DeleteBookAction) {
+  let id = action.payload.book._id
+  await fetch(`http://localhost:5000/api/v1/books/${id}`, {
+    method: 'DELETE',
+  })
+}
+
+function* deleteBook(action: DeleteBookAction) {
+  asyncDeleteBook(action)
+  yield put(ftch())
+}
+
+export default [
+  takeLatest(FETCH_BOOKS, fetchAllTheBooks),
+  takeLatest(DELETE_BOOK, deleteBook),
+]
