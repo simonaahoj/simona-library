@@ -7,7 +7,12 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import AuthorView from '../AuthorView'
-import { addBooktoBaket, deleteBook, fetchUser } from '../../redux/actions'
+import {
+  addBooktoBaket,
+  deleteBook,
+  fetchUser,
+  removeBookfromBasket,
+} from '../../redux/actions'
 import { useDispatch, useSelector } from 'react-redux'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -58,6 +63,37 @@ export default function BookView({
     dispatch(fetchUser())
   }
 
+  function handleCreateAuthorButton(
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
+    window.location.href = '/admin/author'
+  }
+
+  function hadndleRemoveButton(
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
+    dispatch(
+      removeBookfromBasket({
+        _id,
+        title,
+        published,
+        categories,
+        pages,
+        imgUrl,
+        idAuthor,
+        ISBN,
+        description,
+        copy,
+      })
+    )
+  }
+
+  function handleCreateButton(
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
+    window.location.href = '/admin/book'
+  }
+
   function hadndleDeleteButton(
     evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
@@ -94,6 +130,11 @@ export default function BookView({
     )
   }
 
+  const isInBasket =
+    basketState.books //all books
+      .map((b) => b?.title) //all titles
+      .indexOf(title) >= 0
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -126,26 +167,36 @@ export default function BookView({
                   <button
                     type="button"
                     onClick={handleBorrow}
-                    disabled={
-                      basketState.books.map((b) => b?.title).indexOf(title) >= 0
-                    }
+                    disabled={isInBasket}
                   >
-                    Borrow
+                    Add to basket
                   </button>
                   {loggedInUser?.firstName && (
                     <>
                       <button type="button" onClick={hadndleDeleteButton}>
                         Delete{' '}
                       </button>
-                      <button type="button">Update </button>
-                      <button type="button">Retrun </button>
+                      <button type="button" onClick={handleCreateButton}>
+                        Create{' '}
+                      </button>
+                      <button type="button" onClick={handleCreateAuthorButton}>
+                        Create Author{' '}
+                      </button>
                     </>
                   )}
+                  <button type="button" onClick={hadndleRemoveButton}>
+                    Return{' '}
+                  </button>
                 </Typography>
               </Grid>
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1">Available</Typography>
+              {!isInBasket && (
+                <Typography variant="subtitle1">Available</Typography>
+              )}
+              {isInBasket && (
+                <Typography variant="subtitle1">BORROWED</Typography>
+              )}
             </Grid>
           </Grid>
         </Grid>

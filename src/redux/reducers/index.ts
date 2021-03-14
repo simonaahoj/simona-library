@@ -6,6 +6,8 @@ import books from './books'
 import authors from './authors'
 import loggedInUser from './user'
 import basketState from './basket'
+import menuState from './toggleMenu'
+import searchState from './search'
 
 const createRootReducer = () =>
   combineReducers({
@@ -15,6 +17,8 @@ const createRootReducer = () =>
     authors,
     loggedInUser,
     basketState,
+    menuState,
+    searchState,
   })
 
 export default createRootReducer

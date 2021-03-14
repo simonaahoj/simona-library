@@ -6,6 +6,9 @@ import booksSagas from './books'
 import authorsSagas from './author'
 import userSagas from './user'
 import basketSagas from './basket'
+import toggleMenuSagas from './toggleMenu'
+import searchSagas from './search'
+import brrowSaga from './borrow'
 
 export default function* rootSaga() {
   yield all([
@@ -16,5 +19,8 @@ export default function* rootSaga() {
     ...uiSagas,
     ...userSagas,
     ...basketSagas,
+    ...toggleMenuSagas,
+    ...searchSagas,
+    ...brrowSaga,
   ])
 }

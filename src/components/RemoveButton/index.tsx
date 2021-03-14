@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux'
 import { removeBookfromBasket } from '../../redux/actions/basket'
 import { Book } from '../../types'
 import IconButton from '@material-ui/core/IconButton'
-import DeleteIcon from '@material-ui/icons/Delete'
 
 export default function RemoveButton({ book }: { book: Book }) {
   const dispatch = useDispatch()
@@ -18,7 +17,7 @@ export default function RemoveButton({ book }: { book: Book }) {
   return (
     <div>
       <IconButton aria-label="delete" onClick={hadndleRemoveButton}>
-        <DeleteIcon />
+        Return
       </IconButton>
     </div>
   )

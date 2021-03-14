@@ -6,6 +6,8 @@ import {
   Book,
   DELETE_BOOK,
   DeleteBookAction,
+  CREATE_BOOK,
+  CreateBookAction,
 } from '../../types'
 
 export function fetchBooks(): BookAction {
@@ -22,6 +24,13 @@ export function addBooks(books: Book[]): AddBooksAction {
 export function deleteBook(book: Book): DeleteBookAction {
   return {
     type: DELETE_BOOK,
+    payload: { book: book },
+  }
+}
+
+export function createBook(book: Book): CreateBookAction {
+  return {
+    type: CREATE_BOOK,
     payload: { book: book },
   }
 }

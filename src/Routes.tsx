@@ -7,7 +7,8 @@ import LoginPage from './pages/LoginPage'
 import AuthorDetail from './pages/AuthorDetail'
 import LogoutPage from './pages/LogoutPage'
 import BasketPage from './pages/BasketPage'
-import AdminPage from './pages/AdminPage'
+import AdminBook from './pages/AdminBook'
+import AdminAuthor from './pages/AdminAuthor'
 
 const Routes = () => (
   <Switch>
@@ -17,7 +18,8 @@ const Routes = () => (
     <Route exact path="/book/:id" component={BookDetail} />
     <Route exact path="/author/:id" component={AuthorDetail} />
     <Route exact path="/basket" component={BasketPage} />
-    <Route exact path="/admin" component={AdminPage} />
+    <Route exact path="/admin/book" component={AdminBook} />
+    <Route exact path="/admin/author" component={AdminAuthor} />
   </Switch>
 )
 

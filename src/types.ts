@@ -14,6 +14,13 @@ export const REMOVE_BASKET = 'REMOVE_BASKET'
 export const TOGGLE_BASKET = 'TOGGLE_BASKET'
 export const CHANGE_BASKET = 'CHANGE_BASKET'
 export const DELETE_BOOK = 'DELETE_BOOK'
+export const CREATE_BOOK = 'CREATE_BOOK'
+export const TOGGLE_MENU = 'TOGGLE_MENU'
+export const CREATE_AUTHOR = 'CREATE_AUTHOR'
+export const SEARCH = 'SEARCH'
+export const CHANGE_SEARCH = 'CHANGE_SEARCH'
+export const BORROW_BOOKS = 'BORROW_BOOKS'
+export const LOG_IN_USER = 'LOG_IN_USER'
 
 // Enum
 export enum DialogType {
@@ -29,34 +36,34 @@ export type Product = {
 }
 
 export type Book = {
-  _id: string
+  _id: string | undefined
   title: string
-  published: number
-  categories: [string]
-  pages: number
+  published: string
+  categories: string[]
+  pages: string
   imgUrl: string
   idAuthor: string
-  ISBN: number
+  ISBN: string
   description: string
-  copy: []
+  copy: string
 }
 
 export type Author = {
-  _id: string
+  _id: string | undefined
   city: string
   country: string
-  birthDate: Date
+  birthDate: string
   firstName: string
   lastName: string
   imgUrl: string
   biography: string
-  died: Date
+  died: string
 }
 
 export type User = {
   _id: string
   firstName: string
-  birthDate: Date
+  birthDate: string
   email: string
   joinDate: Date
   lastName: string
@@ -90,6 +97,25 @@ export type AddBooksAction = {
   }
 }
 
+export type BorrowBooksAction = {
+  type: typeof BORROW_BOOKS
+  payload: {
+    books: Book[]
+  }
+}
+
+export type CreateBookAction = {
+  type: typeof CREATE_BOOK
+  payload: {
+    book: Book
+  }
+}
+export type CreateAuthorAction = {
+  type: typeof CREATE_AUTHOR
+  payload: {
+    author: Author
+  }
+}
 export type DeleteBookAction = {
   type: typeof DELETE_BOOK
   payload: {
@@ -102,6 +128,11 @@ export type AddBasketAction = {
   payload: {
     books: Book[]
   }
+}
+
+export type ToggleMenuAction = {
+  type: typeof TOGGLE_MENU
+  payload: {}
 }
 
 export type AddAuthorsAction = {
@@ -117,6 +148,14 @@ export type AddLoggeedInUsersAction = {
     user: User
   }
 }
+
+export type LogInUserAction = {
+  type: typeof LOG_IN_USER
+  payload: {
+    id_token: string
+  }
+}
+
 export type RemoveProductAction = {
   type: typeof REMOVE_PRODUCT
   payload: {
@@ -137,6 +176,15 @@ export type ToggleDialogAction = {
     dialog: DialogType
   }
 }
+export type SearchAction = {
+  type: typeof SEARCH
+  payload: string
+}
+
+export type ChangeSearched = {
+  type: typeof CHANGE_SEARCH
+  payload: string
+}
 
 export type ToggleBasketAction = {
   type: typeof TOGGLE_BASKET
@@ -154,7 +202,7 @@ export type UiActions = ToggleDialogAction
 
 // Use this union in reducer
 export type ProductActions = AddProductAction | RemoveProductAction
-export type BookAction = FetchBooksAction | AddBooksAction
+export type BookAction = FetchBooksAction | AddBooksAction | CreateBookAction
 export type AuthorAction = FetchAuthorsAction | AddAuthorsAction
 export type UserAction = FetchLoggedInUserAction | AddLoggeedInUsersAction
 export type BasketAction =
@@ -162,6 +210,8 @@ export type BasketAction =
   | RemoveBasketAction
   | ToggleBasketAction
   | ChangeBasketAction
+export type MenuActions = ToggleMenuAction
+export type SearchActions = SearchAction | ChangeSearched
 
 export type ProductState = {
   inCart: Product[]
@@ -176,8 +226,16 @@ export type BasketState = {
   open: boolean
 }
 
+export type SearchState = {
+  filter: string
+}
+
 export type AuthorsState = {
   authors: Author[]
+}
+
+export type MenuState = {
+  open: boolean
 }
 
 export type LoggedInUserState = {
@@ -198,4 +256,6 @@ export type AppState = {
   authors: AuthorsState
   loggedInUser: LoggedInUserState
   basketState: BasketState
+  menuState: MenuState
+  searchState: SearchState
 }

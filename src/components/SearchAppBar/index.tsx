@@ -8,13 +8,13 @@ import Typography from '@material-ui/core/Typography'
 import InputBase from '@material-ui/core/InputBase'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
-import MenuIcon from '@material-ui/icons/Menu'
+import ToggleMenu from '../ToggleMenu'
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import MoreIcon from '@material-ui/icons/MoreVert'
 import { AppState } from '../../types'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchUser } from '../../redux/actions'
+import { fetchUser, setSearch } from '../../redux/actions'
 import Basket from '../Basket'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -96,6 +96,10 @@ export default function SearchAppBar() {
 
   const isMenuOpen = Boolean(anchorEl)
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
+
+  function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
+    dispatch(setSearch(evt.target.value))
+  }
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
@@ -185,14 +189,7 @@ export default function SearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
+          <ToggleMenu />
           <Typography className={classes.title} variant="h6" noWrap>
             LIBRARY
           </Typography>
@@ -201,6 +198,7 @@ export default function SearchAppBar() {
               <SearchIcon />
             </div>
             <InputBase
+              onChange={handleChange}
               placeholder="Search…"
               classes={{
                 root: classes.inputRoot,

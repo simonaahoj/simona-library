@@ -30,6 +30,12 @@ const initState: AppState = {
     books: loadFromLocalStore(`basket`, '[]'),
     open: false,
   },
+  menuState: {
+    open: false,
+  },
+  searchState: {
+    filter: '',
+  },
 }
 
 export default function makeStore(initialState = initState) {
