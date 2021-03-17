@@ -10,6 +10,7 @@ import AuthorView from '../AuthorView'
 import {
   addBooktoBaket,
   deleteBook,
+  fetchBorrowed,
   fetchUser,
   removeBookfromBasket,
 } from '../../redux/actions'
@@ -58,6 +59,15 @@ export default function BookView({
   const basketState = useSelector((state: AppState) => state.basketState) || {
     books: [],
   }
+
+  const borrowState = useSelector(
+    (state: AppState) => state.borrowBookState
+  ) || { borrowedBooks: undefined }
+
+  if (borrowState.borrowedBooks === undefined) {
+    dispatch(fetchBorrowed())
+  }
+
   const loggedInUser = useSelector((state: AppState) => state.loggedInUser.user)
   if (loggedInUser === undefined) {
     dispatch(fetchUser())
@@ -135,6 +145,14 @@ export default function BookView({
       .map((b) => b?.title) //all titles
       .indexOf(title) >= 0
 
+  let isBorrowed = false
+  if (borrowState.borrowedBooks !== undefined) {
+    isBorrowed =
+      borrowState.borrowedBooks
+        ?.map((b) => b.idBook) //all ids
+        .indexOf(_id || '') >= 0
+  }
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -167,7 +185,7 @@ export default function BookView({
                   <button
                     type="button"
                     onClick={handleBorrow}
-                    disabled={isInBasket}
+                    disabled={isInBasket || isBorrowed}
                   >
                     Add to basket
                   </button>
@@ -191,10 +209,10 @@ export default function BookView({
               </Grid>
             </Grid>
             <Grid item>
-              {!isInBasket && (
+              {!isInBasket && !isBorrowed && (
                 <Typography variant="subtitle1">Available</Typography>
               )}
-              {isInBasket && (
+              {(isInBasket || isBorrowed) && (
                 <Typography variant="subtitle1">BORROWED</Typography>
               )}
             </Grid>

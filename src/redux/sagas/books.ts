@@ -7,6 +7,7 @@ import {
   DELETE_BOOK,
   CREATE_BOOK,
   CreateBookAction,
+  Book,
 } from '../../types'
 import { addBooks, fetchBooks as ftch } from '../actions'
 
@@ -18,7 +19,7 @@ async function fetchBooks() {
 
 function* fetchAllTheBooks(action: FetchBooksAction) {
   console.log("I'm fetching all the books")
-  const books = yield fetchBooks()
+  const books: Book[] = yield fetchBooks()
   yield put(addBooks(books))
 }
 

@@ -21,6 +21,9 @@ export const SEARCH = 'SEARCH'
 export const CHANGE_SEARCH = 'CHANGE_SEARCH'
 export const BORROW_BOOKS = 'BORROW_BOOKS'
 export const LOG_IN_USER = 'LOG_IN_USER'
+export const FETCH_BORROWED_BOOK = 'FETCH_BORROWED_BOOK'
+export const BORROWED_BOOKS_FETCHED = 'BORROWED_BOOKS_FETCHED'
+export const BORROW_DELETE_BOOK = 'BORROW_DELETE_BOOK'
 
 // Enum
 export enum DialogType {
@@ -46,6 +49,14 @@ export type Book = {
   ISBN: string
   description: string
   copy: string
+}
+
+export type BorrowedBook = {
+  _id: string
+  idBook: string
+  idUser: string
+  borrowDate: string
+  returnDate: string
 }
 
 export type Author = {
@@ -97,6 +108,13 @@ export type AddBooksAction = {
   }
 }
 
+export type BorrowedBooksFetchedAction = {
+  type: typeof BORROWED_BOOKS_FETCHED
+  payload: {
+    borrowedbooks: BorrowedBook[]
+  }
+}
+
 export type BorrowBooksAction = {
   type: typeof BORROW_BOOKS
   payload: {
@@ -104,6 +122,9 @@ export type BorrowBooksAction = {
   }
 }
 
+export type FetchBorrowedBookAction = {
+  type: typeof FETCH_BORROWED_BOOK
+}
 export type CreateBookAction = {
   type: typeof CREATE_BOOK
   payload: {
@@ -121,6 +142,17 @@ export type DeleteBookAction = {
   payload: {
     book: Book
   }
+}
+
+export type BorrowDeleteBookAction = {
+  type: typeof BORROW_DELETE_BOOK
+  payload: {
+    borrowbook: BorrowedBook
+  }
+}
+
+export type BorrowAsynDeleteBookAction = {
+  type: typeof BORROW_DELETE_BOOK
 }
 
 export type AddBasketAction = {
@@ -212,6 +244,7 @@ export type BasketAction =
   | ChangeBasketAction
 export type MenuActions = ToggleMenuAction
 export type SearchActions = SearchAction | ChangeSearched
+export type BorrowActions = FetchBorrowedBookAction | BorrowedBooksFetchedAction
 
 export type ProductState = {
   inCart: Product[]
@@ -228,6 +261,10 @@ export type BasketState = {
 
 export type SearchState = {
   filter: string
+}
+
+export type BorrowBookState = {
+  borrowedBooks: BorrowedBook[] | undefined
 }
 
 export type AuthorsState = {
@@ -258,4 +295,5 @@ export type AppState = {
   basketState: BasketState
   menuState: MenuState
   searchState: SearchState
+  borrowBookState: BorrowBookState
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -30,10 +30,10 @@ export default function BookDetail() {
   const classes = useStyles()
   const { id } = useParams()
 
+  const [edit, setEdit] = useState(false)
+
   const dispatch = useDispatch()
-  const basketState = useSelector((state: AppState) => state.basketState) || {
-    books: [],
-  }
+
   const booksState = useSelector((state: AppState) => state.books) || {}
   if (booksState.books?.length === 0) {
     dispatch(fetchBooks())
@@ -51,6 +51,18 @@ export default function BookDetail() {
   const author = useSelector((state: AppState) =>
     state.authors.authors.find((author) => author._id === book?.idAuthor)
   )
+  function handleUpdate(evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) {}
+
+  function handleCancel(evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    setEdit(false)
+  }
+
+  function handleStartEditing(
+    evt: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) {
+    setEdit(true)
+  }
+
   function handleBorrow(evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     dispatch(
       addBooktoBaket({
@@ -71,8 +83,6 @@ export default function BookDetail() {
   if (!book) {
     return <div>Book not found</div>
   }
-
-  const edit = true
 
   let bookDetails = (
     <Card className={classes.root}>
@@ -117,9 +127,12 @@ export default function BookDetail() {
         <Button size="small" color="primary">
           <a href={`/`}> Back </a>
         </Button>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={handleBorrow}>
           Borrow
         </Button>
+        <button type="button" onClick={handleStartEditing}>
+          Edit
+        </button>
       </CardActions>
     </Card>
   )
@@ -131,26 +144,24 @@ export default function BookDetail() {
           {book.title}
         </Typography>
         <Typography gutterBottom variant="h6" component="h2">
-          {author?.firstName} {author?.lastName}
+          <input value={author?.firstName}></input>
+          <input value={author?.lastName}></input>
         </Typography>
-        <CardMedia
-          className={classes.media}
-          image={book.imgUrl}
-          title={book.title}
-        />
+        <input value={book.imgUrl}></input>
+
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
             Description
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {book.description}
+            <textarea>{book.description}</textarea>
           </Typography>
           <br />
           <Typography gutterBottom variant="h6" component="h2">
             Details
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Published:{book.published}
+            Published:<input></input>
             <br />
             Categories:{' '}
             {book.categories.map((category) => (
@@ -159,7 +170,7 @@ export default function BookDetail() {
             <br />
             Pages:<input></input>
             <br />
-            ISBN:{book.ISBN}
+            ISBN:<input></input>
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -167,12 +178,11 @@ export default function BookDetail() {
         <Button size="small" color="primary">
           <a href={`/`}> Back </a>
         </Button>
-        <button
-          type="button"
-          onClick={handleBorrow}
-          disabled={basketState.books.map((b) => b?.title).indexOf(title) >= 0}
-        >
-          Borrow
+        <button type="button" onClick={handleUpdate}>
+          Update
+        </button>
+        <button type="button" onClick={handleCancel}>
+          Cancel
         </button>
       </CardActions>
     </Card>

@@ -113,6 +113,10 @@ export default function SearchAppBar() {
     window.location.href = '/login'
   }
 
+  const handleMyBooks = () => {
+    window.location.href = '/mybooks'
+  }
+
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null)
   }
@@ -152,11 +156,11 @@ export default function SearchAppBar() {
             />
             {loggedInUser?.firstName}
           </MenuItem>
-          <MenuItem onClick={handleMenuClose}>Administration</MenuItem>
+          <MenuItem onClick={handleMyBooks}>My Books</MenuItem>
+          <MenuItem onClick={handleLogout}>Logout </MenuItem>
         </>
       )}
       <MenuItem onClick={handleLogin}>Login</MenuItem>
-      <MenuItem onClick={handleLogout}>Logout </MenuItem>
     </Menu>
   )
 

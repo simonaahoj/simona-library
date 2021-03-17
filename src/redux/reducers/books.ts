@@ -19,9 +19,6 @@ export default function books(
       books: action.payload.books,
     }
   }
-  //case Booksuccborrowe: {
-
-  //  }
 
   default:
     return state

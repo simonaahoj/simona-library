@@ -1,0 +1,22 @@
+.basket-list-item{
+  margin-top: 1%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  min-width: 600px;
+  margin-left: 30%;
+}
+.book {
+  margin-left: 15px;
+  margin-top: 15px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 100px;
+  margin-bottom: 15px;
+}
+
+#title-book{
+    margin: 55px;
+}
+
+
+#button-borrow, #button-back{
+     margin-left: 30%;
+}

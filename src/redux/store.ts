@@ -36,6 +36,9 @@ const initState: AppState = {
   searchState: {
     filter: '',
   },
+  borrowBookState: {
+    borrowedBooks: undefined,
+  },
 }
 
 export default function makeStore(initialState = initState) {

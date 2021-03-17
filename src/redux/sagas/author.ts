@@ -5,6 +5,7 @@ import {
   FetchAuthorsAction,
   CreateAuthorAction,
   CREATE_AUTHOR,
+  Author,
 } from '../../types'
 import { addAuthors } from '../actions'
 
@@ -16,7 +17,7 @@ async function fetchAuthors() {
 
 function* fetchAllTheAuthors(action: FetchAuthorsAction) {
   console.log("I'm fetching all the authors")
-  const authors = yield fetchAuthors()
+  const authors: Author[] = yield fetchAuthors()
   yield put(addAuthors(authors))
 }
 

@@ -5,6 +5,7 @@ import {
   FetchLoggedInUserAction,
   LogInUserAction,
   LOG_IN_USER,
+  User,
 } from '../../types'
 import { addUser } from '../actions'
 
@@ -20,7 +21,12 @@ async function fetchLoggedInUser() {
 
 function* fetchLoggedInUserHandler(action: FetchLoggedInUserAction) {
   console.log("I'm fetching the logged in user")
-  const loggedInUser = yield fetchLoggedInUser()
+
+  if (localStorage.getItem('token') == null) {
+    return
+  }
+
+  const loggedInUser: User = yield fetchLoggedInUser()
   yield put(addUser(loggedInUser))
 }
 
