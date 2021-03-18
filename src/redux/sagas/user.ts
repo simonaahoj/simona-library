@@ -6,6 +6,10 @@ import {
   LogInUserAction,
   LOG_IN_USER,
   User,
+  CreateSingUpAction,
+  SIGN_UP_USER,
+  SIGN_IN_USER,
+  SingInAction,
 } from '../../types'
 import { addUser } from '../actions'
 
@@ -56,8 +60,45 @@ function* loginUserHandler(action: LogInUserAction) {
 
   yield
 }
+async function createSignUp(action: CreateSingUpAction) {
+  let formData = new FormData()
+  formData.append('firstName', action.payload.user.firstName)
+  formData.append('lastName', action.payload.user.lastName)
+  formData.append('email', action.payload.user.email)
+  formData.append('password', action.payload.user.password)
+
+  fetch('http://localhost:5000/api/v1/users', {
+    method: 'POST',
+    body: new URLSearchParams([...(formData as any)]),
+  })
+    .then((response) => response.text())
+    .then((token) => {
+      localStorage.setItem('token', token)
+      window.location.href = '/'
+    })
+  return
+}
+
+async function signIn(action: SingInAction) {
+  let formData = new FormData()
+  formData.append('email', action.payload.userSingIn.email)
+  formData.append('password', action.payload.userSingIn.password)
+
+  fetch('http://localhost:5000/api/v1/users/mySignIn', {
+    method: 'POST',
+    body: new URLSearchParams([...(formData as any)]),
+  })
+    .then((response) => response.text())
+    .then((token) => {
+      localStorage.setItem('token', token)
+      window.location.href = '/'
+    })
+  return
+}
 
 export default [
   takeLatest(FETCH_LOGGED_IN_USER, fetchLoggedInUserHandler),
   takeLatest(LOG_IN_USER, loginUserHandler),
+  takeLatest(SIGN_UP_USER, createSignUp),
+  takeLatest(SIGN_IN_USER, signIn),
 ]

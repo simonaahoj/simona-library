@@ -45,6 +45,9 @@ export default function FormPropsTextFields() {
       'description'
     ) as HTMLInputElement).value
     let copy = document.getElementById('copy') as HTMLInputElement
+    let pages = (document.getElementById(
+      'pages'
+    ) as HTMLInputElement).value.toString()
 
     dispatch(
       createBook({
@@ -52,7 +55,7 @@ export default function FormPropsTextFields() {
         title: title,
         published: `${published}`,
         categories: categories.split(' '),
-        pages: `876`,
+        pages: `${pages}`,
         imgUrl: `${imgUrl}`,
         idAuthor: `${idAuthor}`,
         ISBN: `${ISBN}`,

@@ -14,7 +14,6 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { title } from 'process'
-
 const useStyles = makeStyles({
   root: {
     maxWidth: 700,
@@ -51,7 +50,53 @@ export default function BookDetail() {
   const author = useSelector((state: AppState) =>
     state.authors.authors.find((author) => author._id === book?.idAuthor)
   )
-  function handleUpdate(evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) {}
+
+  function handleUpdate(evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    // alert('Book is created')
+    // window.location.href = '/'
+    let title = (document.getElementById('title') as HTMLInputElement).value
+    let categories = (document.getElementById('categories') as HTMLInputElement)
+      .value
+    let published = (document.getElementById(
+      'published'
+    ) as HTMLInputElement).value.toString()
+    let imgUrl = (document.getElementById('imgUrl') as HTMLInputElement).value
+    let ISBN = (document.getElementById('ISBN') as HTMLInputElement).value
+    let description = (document.getElementById(
+      'description'
+    ) as HTMLInputElement).value
+    let copy = document.getElementById('copy') as HTMLInputElement
+    let pages = (document.getElementById(
+      'pages'
+    ) as HTMLInputElement).value.toString()
+    console.log('I am dispatching updatebook')
+    console.log({
+      _id: id,
+      title: title,
+      published: `${published}`,
+      categories: categories.split(' '),
+      pages: `${pages}`,
+      imgUrl: `${imgUrl}`,
+      idAuthor: `String`,
+      ISBN: `${ISBN}`,
+      description: `${description}`,
+      copy: `${copy}`,
+    })
+    /*dispatch(
+      updateBook({
+        _id: id,
+        title: title,
+        published: `${published}`,
+        categories: categories.split(' '),
+        pages: `${pages}`,
+        imgUrl: `${imgUrl}`,
+        idAuthor: `String`,
+        ISBN: `${ISBN}`,
+        description: `${description}`,
+        copy: `${copy}`,
+      })
+    )*/
+  }
 
   function handleCancel(evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     setEdit(false)
@@ -141,36 +186,35 @@ export default function BookDetail() {
     <Card className={classes.root}>
       <CardActionArea>
         <Typography gutterBottom variant="h5" component="h2">
-          {book.title}
+          <input value={title} id="title"></input>
         </Typography>
         <Typography gutterBottom variant="h6" component="h2">
           <input value={author?.firstName}></input>
           <input value={author?.lastName}></input>
         </Typography>
-        <input value={book.imgUrl}></input>
+        <input value={book.imgUrl} id="imgUrl"></input>
 
         <CardContent>
           <Typography gutterBottom variant="h6" component="h2">
             Description
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            <textarea>{book.description}</textarea>
+            <textarea id="description">{book.description}</textarea>
           </Typography>
           <br />
           <Typography gutterBottom variant="h6" component="h2">
             Details
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Published:<input></input>
+            Published:
+            <input value={book.published} id="published"></input>
             <br />
-            Categories:{' '}
-            {book.categories.map((category) => (
-              <label>{category} </label>
-            ))}
+            Categories:
+            <input id="categories"></input>
             <br />
-            Pages:<input></input>
+            Pages:<input value={book.pages} id="pages"></input>
             <br />
-            ISBN:<input></input>
+            ISBN:<input value={book.ISBN} id="ISBN"></input>
           </Typography>
         </CardContent>
       </CardActionArea>

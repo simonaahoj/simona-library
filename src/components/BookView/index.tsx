@@ -189,7 +189,7 @@ export default function BookView({
                   >
                     Add to basket
                   </button>
-                  {loggedInUser?.firstName && (
+                  {loggedInUser?.admin && (
                     <>
                       <button type="button" onClick={hadndleDeleteButton}>
                         Delete{' '}

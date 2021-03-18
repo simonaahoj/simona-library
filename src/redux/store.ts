@@ -11,12 +11,6 @@ function loadFromLocalStore(key: string, defaultValue: string) {
 }
 
 const initState: AppState = {
-  product: {
-    inCart: [],
-  },
-  ui: {
-    dialogOpen: {},
-  },
   books: {
     books: [],
   },

@@ -42,7 +42,9 @@ export default function FormPropsTextFields() {
     let imgUrl = (document.getElementById('imgUrl') as HTMLInputElement).value
     let biography = (document.getElementById('biography') as HTMLInputElement)
       .value
-    let died = (document.getElementById('died') as HTMLInputElement).value
+    let died = (document.getElementById(
+      'died'
+    ) as HTMLInputElement).value.toString()
 
     dispatch(
       createAuthor({

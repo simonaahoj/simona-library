@@ -1,7 +1,4 @@
 // Action types
-export const ADD_PRODUCT = 'ADD_PRODUCT'
-export const REMOVE_PRODUCT = 'REMOVE_PRODUCT'
-export const TOGGLE_DIALOG = 'TOGGLE_DIALOG'
 
 export const ADD_BOOKS = 'ADD_BOOKS'
 export const FETCH_BOOKS = 'FETCH_BOOKS'
@@ -24,19 +21,9 @@ export const LOG_IN_USER = 'LOG_IN_USER'
 export const FETCH_BORROWED_BOOK = 'FETCH_BORROWED_BOOK'
 export const BORROWED_BOOKS_FETCHED = 'BORROWED_BOOKS_FETCHED'
 export const BORROW_DELETE_BOOK = 'BORROW_DELETE_BOOK'
-
-// Enum
-export enum DialogType {
-  SignIn = 'signIn',
-  SignUp = 'signUp',
-}
-
-// A product
-export type Product = {
-  id: string
-  name: string
-  price: number
-}
+export const SIGN_UP_USER = 'SIGN_UP_USER'
+export const UPDATE_BOOK = 'UPDATE_BOOK'
+export const SIGN_IN_USER = 'SIGN_IN_USER'
 
 export type Book = {
   _id: string | undefined
@@ -72,21 +59,27 @@ export type Author = {
 }
 
 export type User = {
-  _id: string
+  _id: string | undefined
   firstName: string
-  birthDate: string
+  birthDate: string | undefined
   email: string
-  joinDate: Date
+  joinDate: string | undefined
   lastName: string
-  imgUrl: string
-  admin: boolean
+  imgUrl: string | undefined
+  admin: boolean | undefined
+  password: string
 }
 
-export type AddProductAction = {
-  type: typeof ADD_PRODUCT
-  payload: {
-    product: Product
-  }
+export type UserSingIn = {
+  _id: string | undefined
+  firstName: string | undefined
+  birthDate: string | undefined
+  email: string
+  joinDate: string | undefined
+  lastName: string | undefined
+  imgUrl: string | undefined
+  admin: boolean | undefined
+  password: string
 }
 
 export type FetchBooksAction = {
@@ -131,10 +124,24 @@ export type CreateBookAction = {
     book: Book
   }
 }
+
+export type UpdateBookAction = {
+  type: typeof UPDATE_BOOK
+  payload: {
+    book: Book
+  }
+}
+
 export type CreateAuthorAction = {
   type: typeof CREATE_AUTHOR
   payload: {
     author: Author
+  }
+}
+export type CreateSingUpAction = {
+  type: typeof SIGN_UP_USER
+  payload: {
+    user: User
   }
 }
 export type DeleteBookAction = {
@@ -188,10 +195,17 @@ export type LogInUserAction = {
   }
 }
 
-export type RemoveProductAction = {
-  type: typeof REMOVE_PRODUCT
+export type SingUpAction = {
+  type: typeof SIGN_UP_USER
   payload: {
-    product: Product
+    user: User
+  }
+}
+
+export type SingInAction = {
+  type: typeof SIGN_IN_USER
+  payload: {
+    userSingIn: UserSingIn
   }
 }
 
@@ -202,12 +216,6 @@ export type RemoveBasketAction = {
   }
 }
 
-export type ToggleDialogAction = {
-  type: typeof TOGGLE_DIALOG
-  payload: {
-    dialog: DialogType
-  }
-}
 export type SearchAction = {
   type: typeof SEARCH
   payload: string
@@ -230,13 +238,17 @@ export type ChangeBasketAction = {
   }
 }
 
-export type UiActions = ToggleDialogAction
-
 // Use this union in reducer
-export type ProductActions = AddProductAction | RemoveProductAction
-export type BookAction = FetchBooksAction | AddBooksAction | CreateBookAction
+export type BookAction =
+  | FetchBooksAction
+  | AddBooksAction
+  | CreateBookAction
+  | UpdateBookAction
 export type AuthorAction = FetchAuthorsAction | AddAuthorsAction
-export type UserAction = FetchLoggedInUserAction | AddLoggeedInUsersAction
+export type UserAction =
+  | FetchLoggedInUserAction
+  | AddLoggeedInUsersAction
+  | SingUpAction
 export type BasketAction =
   | AddBasketAction
   | RemoveBasketAction
@@ -245,10 +257,6 @@ export type BasketAction =
 export type MenuActions = ToggleMenuAction
 export type SearchActions = SearchAction | ChangeSearched
 export type BorrowActions = FetchBorrowedBookAction | BorrowedBooksFetchedAction
-
-export type ProductState = {
-  inCart: Product[]
-}
 
 export type BooksState = {
   books: Book[]
@@ -280,15 +288,8 @@ export type LoggedInUserState = {
 }
 
 // Using dynamic keys from an enum
-export type UiState = {
-  dialogOpen: {
-    [key in DialogType]?: boolean
-  }
-}
 
 export type AppState = {
-  product: ProductState
-  ui: UiState
   books: BooksState
   authors: AuthorsState
   loggedInUser: LoggedInUserState
