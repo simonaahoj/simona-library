@@ -1,0 +1,100 @@
+
+
+GET  http://localhost:5000/api/v1/books HTTP/1.1
+content-type: application/json
+
+###
+
+POST http://localhost:5000/api/v1/books HTTP/1.1
+content-type: application/json
+
+{
+    "title": "simona test",
+    "published": "March 1 2021",
+    "categories": ["fantasy", "classic"],
+    "pages": "450",
+    "idAuthor": "6033d161d6f461f27c78592a",
+    "imgUrl": "https://images-production.bookshop.org/spree/images/attachments/1807446/original/9780199600922.jpg?1587249658",
+    "ISBN": 1234567891234,
+    "description":"description",
+    "copy":"{copyId:1, borrowed:false}"
+}
+
+###
+
+DELETE http://localhost:5000/api/v1/books/id HTTP/1.1
+content-type: application/json
+
+###
+
+GET  http://localhost:5000/api/v1/authors HTTP/1.1
+content-type: application/json
+
+###
+
+POST http://localhost:5000/api/v1/authors HTTP/1.1
+content-type: application/json
+
+{
+    "city": "Berlin",
+    "country": "Deuchland",
+    "birthDate": "22 Octobra 1999",
+    "firstName": "Eva",
+    "lastName": "Vohradska",
+    "biography": "string",
+    "died": "Date",
+    "imgUrl": "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTY2NTQ1NTM2OTM2MDYwMTQ2/charles-dickens.jpg"
+}
+
+###
+
+DELETE http://localhost:5000/api/v1/authors/:id HTTP/1.1
+content-type: application/json
+
+###
+
+GET  http://localhost:5000/api/v1/users HTTP/1.1
+content-type: application/json
+
+###
+
+POST http://localhost:5000/api/v1/users HTTP/1.1
+content-type: application/json
+
+{
+    "firstName": "Primoz",
+    "lastName": "Badman",
+    "birthDate": "27 Octobra 1999",
+    "email": "badman@gmail.com",
+    "joinDate": "27 Octobra 2000",
+    "imgUrl":""
+}
+
+###
+
+DELETE http://localhost:5000/api/v1/users/id HTTP/1.1
+content-type: application/json
+
+
+###
+
+GET http://localhost:5000/api/v1/borrowedbooks HTTP/1.1
+content-type: application/json
+Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzdhOWUzNGE0ZDQ3NzI2N2I0YmFkOSIsImlhdCI6MTYxNTkwODc2NH0.LZ2SW2myeM5HqY9Q7ztzZ4M1FB1Xpy0p4jo5nnvDCg0'
+
+###
+
+POST http://localhost:5000/api/v1/borrowedbooks HTTP/1.1
+content-type: application/json
+
+{
+    "idBook": "603e3d2fe4af350a971fc655",
+    "idUser": "6037ade54a4d477267b4badd",
+    "borrowDate": "2021-01-01T23:00:00.000Z",
+    "returnDate": "2021-05-01T22:00:00.000Z"
+}
+
+###
+
+DELETE http://localhost:5000/api/v1/borrowedbooks/603ebb406f93bb3d688ec36a HTTP/1.1
+content-type: application/json
