@@ -38,6 +38,9 @@ function* borrowBooksHandler(action: BorrowBooksAction) {
 }
 
 async function fetchBorrowedBook() {
+  if (localStorage.getItem('token') === null) {
+    return []
+  }
   const result = await fetch(`${REACT_APP_BACKEND_URL}/api/v1/borrowedBooks`, {
     headers: new Headers({
       Authorization: 'Bearer ' + localStorage.getItem('token'),
