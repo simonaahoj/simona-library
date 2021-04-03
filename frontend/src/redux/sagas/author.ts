@@ -9,8 +9,10 @@ import {
 } from '../../types'
 import { addAuthors } from '../actions'
 
+const { REACT_APP_BACKEND_URL } = process.env
+
 async function fetchAuthors() {
-  const result = await fetch(' http://localhost:5000/api/v1/authors')
+  const result = await fetch(`${REACT_APP_BACKEND_URL}/api/v1/authors`)
   const authorsAsJson = await result.json()
   return authorsAsJson
 }
@@ -32,7 +34,7 @@ async function createAuthor(action: CreateAuthorAction) {
   formData.append('died', action.payload.author.died.toString())
   formData.append('biography', action.payload.author.biography)
 
-  const result = await fetch('http://localhost:5000/api/v1/authors', {
+  const result = await fetch(`${REACT_APP_BACKEND_URL}/api/v1/authors`, {
     method: 'POST',
     body: new URLSearchParams([...(formData as any)]),
   })

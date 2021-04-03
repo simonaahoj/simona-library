@@ -12,9 +12,10 @@ import {
   SingInAction,
 } from '../../types'
 import { addUser } from '../actions'
+const { REACT_APP_BACKEND_URL } = process.env
 
 async function fetchLoggedInUser() {
-  const result = await fetch('http://localhost:5000/api/v1/loggedInUser', {
+  const result = await fetch(`${REACT_APP_BACKEND_URL}/api/v1/loggedInUser`, {
     headers: new Headers({
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     }),
@@ -39,7 +40,7 @@ function* loginUserHandler(action: LogInUserAction) {
     id_token: action.payload.id_token,
   }
 
-  fetch('http://localhost:5000/google/login', {
+  fetch(`${REACT_APP_BACKEND_URL}/google/login`, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -67,7 +68,7 @@ async function createSignUp(action: CreateSingUpAction) {
   formData.append('email', action.payload.user.email)
   formData.append('password', action.payload.user.password)
 
-  fetch('http://localhost:5000/api/v1/users', {
+  fetch(`${REACT_APP_BACKEND_URL}/api/v1/users`, {
     method: 'POST',
     body: new URLSearchParams([...(formData as any)]),
   })
@@ -84,7 +85,7 @@ async function signIn(action: SingInAction) {
   formData.append('email', action.payload.userSingIn.email)
   formData.append('password', action.payload.userSingIn.password)
 
-  fetch('http://localhost:5000/api/v1/users/mySignIn', {
+  fetch(`${REACT_APP_BACKEND_URL}/api/v1/users/mySignIn`, {
     method: 'POST',
     body: new URLSearchParams([...(formData as any)]),
   })

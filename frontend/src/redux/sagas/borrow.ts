@@ -10,6 +10,7 @@ import {
   BORROW_DELETE_BOOK,
 } from '../../types'
 import { booksFetched, fetchBorrowed, removeBookfromBasket } from '../actions'
+const { REACT_APP_BACKEND_URL } = process.env
 
 function* borrowBooksHandler(action: BorrowBooksAction) {
   const returnDate: Date = new Date()
@@ -18,7 +19,7 @@ function* borrowBooksHandler(action: BorrowBooksAction) {
   console.log(action.payload.books)
 
   for (let book of action.payload.books) {
-    fetch('http://localhost:5000/api/v1/borrowedBooks', {
+    fetch(`${REACT_APP_BACKEND_URL}/api/v1/borrowedBooks`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,7 +38,7 @@ function* borrowBooksHandler(action: BorrowBooksAction) {
 }
 
 async function fetchBorrowedBook() {
-  const result = await fetch('http://localhost:5000/api/v1/borrowedBooks', {
+  const result = await fetch(`${REACT_APP_BACKEND_URL}/api/v1/borrowedBooks`, {
     headers: new Headers({
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     }),
@@ -54,7 +55,7 @@ function* fetchBorrowedBookHandler(action: FetchBorrowedBookAction) {
 
 async function asyncBorrowDeleteBook(action: BorrowDeleteBookAction) {
   let id = action.payload.borrowbook._id
-  await fetch(`http://localhost:5000/api/v1/borrowedbooks/${id}`, {
+  await fetch(`${REACT_APP_BACKEND_URL}/api/v1/borrowedbooks/${id}`, {
     headers: new Headers({
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     }),

@@ -12,9 +12,10 @@ import {
   UPDATE_BOOK,
 } from '../../types'
 import { addBooks, fetchBooks as ftch } from '../actions'
+const { REACT_APP_BACKEND_URL } = process.env
 
 async function fetchBooks() {
-  const result = await fetch('http://localhost:5000/api/v1/books')
+  const result = await fetch(`${REACT_APP_BACKEND_URL}/api/v1/books`)
   const booksAsJson = await result.json()
   return booksAsJson
 }
@@ -27,7 +28,7 @@ function* fetchAllTheBooks(action: FetchBooksAction) {
 
 async function asyncDeleteBook(action: DeleteBookAction) {
   let id = action.payload.book._id
-  await fetch(`http://localhost:5000/api/v1/books/${id}`, {
+  await fetch(`${REACT_APP_BACKEND_URL}/api/v1/books/${id}`, {
     method: 'DELETE',
   })
 }
@@ -49,7 +50,7 @@ async function createBook(action: CreateBookAction) {
   formData.append('description', action.payload.book.description)
   formData.append('copy', action.payload.book.copy)
 
-  const result = await fetch('http://localhost:5000/api/v1/books', {
+  const result = await fetch(`${REACT_APP_BACKEND_URL}/api/v1/books`, {
     method: 'POST',
     body: new URLSearchParams([...(formData as any)]),
   })
@@ -70,7 +71,7 @@ async function updateBook(action: UpdateBookAction) {
   formData.append('copy', action.payload.book.copy)
 
   const result = await fetch(
-    `http://localhost:5000/api/v1/books/${action.payload.book._id}`,
+    `${REACT_APP_BACKEND_URL}/api/v1/books/${action.payload.book._id}`,
     {
       method: 'PUT',
       body: new URLSearchParams([...(formData as any)]),
