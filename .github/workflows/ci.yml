@@ -58,4 +58,14 @@ jobs:
       - name: login to heroku
         run: heroku container:login
         env:
-          HEROKU_API_KEY:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
+      - name: push to heroku
+        run: heroku container:push -a simona-library/backend
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
+      - name: release the image
+        run: docker conteainer:release web
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
