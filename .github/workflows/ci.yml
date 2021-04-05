@@ -18,7 +18,6 @@ jobs:
 
       - name: setup cache
         uses: actions/cache@v1
-        working-directory: backend
         with:
           path: ~/.npm
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
