@@ -10,13 +10,11 @@ jobs:
     steps:
       - name: set up node
         uses: actions/setup-node@v2
-        working-directory: backend
         with:
           node-version: "14"
 
       - name: checkout code
         uses: actions/checkout@v2
-        working-directory: backend
 
       - name: setup cache
         uses: actions/cache@v1
