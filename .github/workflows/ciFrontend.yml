@@ -58,7 +58,6 @@ jobs:
 
       - name: deploy
         uses: netlify/actions/cli@master
-        working-directory: frontend
         with:
           args: deploy --dir=build --prod
         env:
