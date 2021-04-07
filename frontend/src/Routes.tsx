@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 
 import Library from './pages/Library'
 import BookDetail from './pages/BookDetail'
@@ -12,7 +12,7 @@ import AdminAuthor from './pages/AdminAuthor'
 import MyBooks from './pages/MyBooks'
 
 const Routes = () => (
-  <Switch>
+  <BrowserRouter>
     <Route exact path="/login" component={LoginPage} />
     <Route exact path="/logout" component={LogoutPage} />
     <Route exact path="/" component={Library} />
@@ -22,7 +22,7 @@ const Routes = () => (
     <Route exact path="/admin/book" component={AdminBook} />
     <Route exact path="/admin/author" component={AdminAuthor} />
     <Route exact path="/mybooks" component={MyBooks} />
-  </Switch>
+  </BrowserRouter>
 )
 
 export default Routes

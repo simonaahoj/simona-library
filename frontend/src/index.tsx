@@ -11,9 +11,7 @@ const store = makeStore()
 
 const WithProvider = () => (
   <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
+    <App />
   </Provider>
 )
 
