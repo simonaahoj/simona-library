@@ -16,6 +16,11 @@ const prod = ENVIRONMENT === 'production' // Anything else is treated as 'dev'
 
 export const SESSION_SECRET = process.env['SESSION_SECRET'] as string
 export const JWT_SECRET = process.env['SESSION_SECRET'] as string
+
+logger.info("test")
+logger.info(process.env['MONGODB_URI'])
+logger.info(process.env['MONGODB_URI_LOCAL'])
+
 export const MONGODB_URI = (prod
   ? process.env['MONGODB_URI']
   : process.env['MONGODB_URI_LOCAL']) as string

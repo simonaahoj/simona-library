@@ -2,9 +2,12 @@
 # That is why we tell node here to use the openjdk image with java 12 as base.
 FROM node:14
 
-ENV MONGODB_URI ${MONGODB_URI}
+ARG MONGODB_URI_ARG=$MONGODB_URI
+
 # The /app directory should act as the main application directory
 WORKDIR src/app
+
+ENV MONGODB_URI=$MONGODB_URI_ARG
 
 # Copy or project directory (locally) in the current directory of our docker image (/app)
 COPY . .
