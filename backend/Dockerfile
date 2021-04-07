@@ -2,6 +2,7 @@
 # That is why we tell node here to use the openjdk image with java 12 as base.
 FROM node:14
 
+ENV MONGODB_URI ${MONGODB_URI}
 # The /app directory should act as the main application directory
 WORKDIR src/app
 
@@ -14,7 +15,7 @@ EXPOSE 5000
 RUN npm install
 RUN npm run build
 
-ENV MONGODB_URI ${MONGODB_URI}
+
 
 # Start the app
 CMD [ "npm", "start" ]
