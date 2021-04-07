@@ -6,7 +6,7 @@ import makeStore from './redux/store'
 import { addBooks } from './redux/actions'
 
 const store = makeStore()
-test('renders all ISBN library', async () => {
+test('renders all title library', async () => {
   store.dispatch(
     addBooks([
       {
@@ -30,6 +30,6 @@ test('renders all ISBN library', async () => {
     </Provider>
   )
 
-  const authorLirary = await screen.getByText('author')
-  expect(authorLirary).toBeInTheDocument()
+  const titleLirary = await screen.getByText('title')
+  expect(titleLirary).toBeInTheDocument()
 })
