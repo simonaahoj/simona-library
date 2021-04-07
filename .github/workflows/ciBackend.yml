@@ -41,7 +41,7 @@ jobs:
         working-directory: backend
 
       - name: build docker image
-        run: docker build --build-arg MONGODB_URI=${{ secrets.MONGODB_URI }} ./backend -t simona87/library-backend
+        run: docker build --build-arg MONGODB_URI=${{ secrets.MONGODB_URI }} --build-arg NODE_ENV=${{ secrets.NODE_ENV }} ./backend -t simona87/library-backend
 
       - name: login to Docker Hub
         uses: docker/login-action@v1
