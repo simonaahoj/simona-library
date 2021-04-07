@@ -14,5 +14,7 @@ EXPOSE 5000
 RUN npm install
 RUN npm run build
 
+ENV MONGODB_URI=${{ secrets.MONGODB_URI }}
+
 # Start the app
 CMD [ "npm", "start" ]
