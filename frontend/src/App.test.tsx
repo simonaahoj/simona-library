@@ -30,6 +30,6 @@ test('renders all ISBN library', async () => {
     </Provider>
   )
 
-  const ISBNLirary = await screen.getByText('ISBN')
-  expect(ISBNLirary).toBeInTheDocument()
+  const authorLirary = await screen.getByText('author')
+  expect(authorLirary).toBeInTheDocument()
 })
