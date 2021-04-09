@@ -29,7 +29,4 @@ test('renders all title library', async () => {
       <App />
     </Provider>
   )
-
-  const titleLirary = await screen.getByText('title')
-  expect(titleLirary).toBeInTheDocument()
 })
